@@ -1,0 +1,170 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    color: black;
+    text-align: center;
+}
+
+:root {
+    color-scheme: dark;
+    --bg: #101018;
+    --surface: #171720;
+    --surface-2: #1d1d28;
+    --border: rgba(255, 255, 255, 0, 09);
+    --text: #ffffff;
+    --muted: #a5a3b3;
+    --purple: #a88bff;
+    --pink: #f08bc4;
+    --orange: #ff8c66;
+    --yellow: #f9f37b;
+    --green: #a4f58c;
+    --radius: 22px;
+    font-family: inter, ui-sans-seri, system-ui;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+    background: radial-gradient(ellipse at 85% 0%, rgba(117, 81, 196, .15), transparent 34rem), var(--bg);
+    color: var(--text);
+}
+
+button,
+textarea,
+select {
+    font: inherit;
+    outline: none;
+}
+
+button {
+    color: inherit;
+    cursor: pointer;
+}
+
+button:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+input:focus-visible {
+    outline: 2px solid var(--purple);
+    outline-offset: 3px;
+}
+
+.app {
+    width: min(1120px, calc(100%¨- 48px));
+    margin: 0 auto;
+    padding: 28px 0 64px;
+}
+
+.cabecalho {
+    padding: 16px 0;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+    text-align: center;
+}
+.painel-contolrs {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 2rem;
+    text-align: center;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    text-align: center;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--text);
+}
+
+.brand-mark {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    color: #17131f;
+    background: linear-gradient(135deg, #c7aaff, #f3a6d0);
+    font-size: 23px;
+    font-weight: 800;
+}
+
+.brand-name {
+    font-size: 18px;
+    font-weight: 750;
+    letter-spacing: -.04em;
+}
+
+.brand-caption {
+    margin-top: 2px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.brand-caption {
+    margin-top: 3px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.top-note {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.hero {
+    padding: 65px 0 36px;
+    text-align: center;
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 11px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: #d8caff;
+    background: rgba(168, 139, 255, 0.08);
+    font-size: 12px;
+    font-weight: 650;
+}
+
+main.container {
+    max-width: 600px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background: var(--surface);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+#painel-controls {
+    display: table;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 2rem;
+    text-align: center;
+}
