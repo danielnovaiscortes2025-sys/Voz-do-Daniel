@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <title>Conversor de Texto para Áudio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <header>
+        <div class="cabecalho">
+            <h1>Voz do Daniel</h1>
+            <p>Converter texto em áudio</p>
+    </header>
+    <nav id="painel-contolrs">
+        <ul>
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">Contato</a></li>
+        </ul>
+    </nav>
+    <div class="card">
+        <h2>Conversor Texto-Áudio</h2>
+        <textarea id="text-input" placeholder="Digite seu texto aqui..." rows="6"></textarea>
+
+        <select id="voice-select">
+            <option value="">Selecionar Voz...</option>
+        </select>
+
+        <div class="controls">
+            <button id="play-btn">Ouvir</button>
+            <button id="download-btn">Baixar MP3</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
