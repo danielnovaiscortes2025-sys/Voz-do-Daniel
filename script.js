@@ -19,7 +19,9 @@
     const textInput = document.getElementById('text-input');
     const voiceSelect = document.getElementById('voice-select');
     const playBtn = document.getElementById('play-btn');
+    const stopBtn = document.getElementById('stop-btn');
     const downloadBtn = document.getElementById('download-btn');
+    const legendaTexto = document.getElementById('legenda-texto');
 
     // Programação defensiva: validamos a existência dos elementos essenciais antes de continuar
     if (!textInput || !voiceSelect || !playBtn) {
@@ -73,13 +75,23 @@
     }
 
     /**
-     * Alterna o estado visual e funcional do botão de reprodução.
+     * Alterna o estado visual e funcional dos botões de controle.
      * @param {boolean} isPlaying - Indica se o áudio está em execução.
      */
     const togglePlaybackState = (isPlaying) => {
         playBtn.disabled = isPlaying;
         playBtn.textContent = isPlaying ? 'Reproduzindo...' : 'Ouvir';
+        if (stopBtn) {
+            stopBtn.disabled = !isPlaying;
+            stopBtn.style.opacity = isPlaying ? '1' : '0.6';
+        }
     };
+
+    // Inicializa o botão de parar desativado
+    if (stopBtn) {
+        stopBtn.disabled = true;
+        stopBtn.style.opacity = '0.6';
+    }
 
     /**
      * Executa a conversão do texto em áudio via Web Speech API.
@@ -95,7 +107,7 @@
         }
 
         // Se já houver uma fala em andamento, interrompemos imediatamente antes de iniciar a nova
-        if (synth.speaking) {
+        if (synth.speaking || synth.pending) {
             synth.cancel();
         }
 
@@ -108,6 +120,43 @@
             utterance.voice = availableVoices[selectedIndex];
         }
 
+        // Prepara a área de legendas dividindo por blocos de palavras para efeito karaoke
+        const words = textToSpeak.split(/(\s+)/);
+        if (legendaTexto) {
+            legendaTexto.innerHTML = '';
+            words.forEach((chunk, index) => {
+                if (chunk.trim()) {
+                    const span = document.createElement('span');
+                    span.id = `legenda-word-${index}`;
+                    span.textContent = chunk;
+                    legendaTexto.appendChild(span);
+                } else {
+                    legendaTexto.appendChild(document.createTextNode(chunk));
+                }
+            });
+        }
+
+        // Evento que sincroniza a palavra falada com a legenda
+        utterance.onboundary = (event) => {
+            if (event.name === 'word' && legendaTexto) {
+                const charIndex = event.charIndex;
+                let accumulated = 0;
+                words.forEach((chunk, index) => {
+                    const span = document.getElementById(`legenda-word-${index}`);
+                    if (span) {
+                        const start = accumulated;
+                        const end = accumulated + chunk.length;
+                        if (charIndex >= start && charIndex < end) {
+                            span.classList.add('palavra-ativa');
+                        } else {
+                            span.classList.remove('palavra-ativa');
+                        }
+                    }
+                    accumulated += chunk.length;
+                });
+            }
+        };
+
         // Tratamento dos ciclos de vida assíncronos da elocução
         utterance.onstart = () => {
             togglePlaybackState(true);
@@ -115,6 +164,10 @@
 
         utterance.onend = () => {
             togglePlaybackState(false);
+            if (legendaTexto) {
+                const ativas = legendaTexto.querySelectorAll('.palavra-ativa');
+                ativas.forEach((el) => el.classList.remove('palavra-ativa'));
+            }
         };
 
         utterance.onerror = (event) => {
@@ -126,15 +179,30 @@
         synth.speak(utterance);
     };
 
+    /**
+     * Interrompe imediatamente a fala e restaura o estado dos botões.
+     */
+    const handleStop = () => {
+        if (synth.speaking || synth.pending) {
+            synth.cancel();
+        }
+        togglePlaybackState(false);
+        if (legendaTexto) {
+            const ativas = legendaTexto.querySelectorAll('.palavra-ativa');
+            ativas.forEach((el) => el.classList.remove('palavra-ativa'));
+        }
+    };
+
     // 4. Registro de Ouvintes de Eventos (Event Listeners)
     playBtn.addEventListener('click', handleSpeak);
 
-    // Aviso informativo de arquitetura sobre o botão de download
+    if (stopBtn) {
+        stopBtn.addEventListener('click', handleStop);
+    }
+
+    // Aviso informativo sobre o botão de download
     if (downloadBtn) {
         downloadBtn.addEventListener('click', () => {
-            // Nota de arquitetura: A Web Speech API do navegador gera áudio via hardware do SO e não
-            // disponibiliza um stream nativo de exportação de MP3. Para download, normalmente usa-se
-            // uma API backend (como Google Cloud TTS / ElevenLabs) ou captura via AudioContext.
             alert('O download de MP3 nativo requer integração com uma API de Text-to-Speech no servidor.');
         });
     }

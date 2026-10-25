@@ -6,31 +6,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
 </head>
 
 <body>
-    <header>
-        <div class="cabecalho">
-            <h1>Voz do Daniel</h1>
-            <p>Converter texto em áudio</p>
-    </header>
-    <nav id="painel-contolrs">
-        <ul>
-            <li><a href="#">Sobre</a></li>
-            <li><a href="#">Contato</a></li>
-        </ul>
-    </nav>
-    <div class="card">
-        <h2>Conversor Texto-Áudio</h2>
+    <div class="cabecalho">
+        <h1>Voz do Daniel</h1>
+          <h2>Conversor Texto-Áudio</h2>
+        <nav id="painel-contolrs">
+            <a href="#">Sobre</a>  <a href="#">Contato</a>
+        </nav>
+    </div>
+    <div class="container">
         <textarea id="text-input" placeholder="Digite seu texto aqui..." rows="6"></textarea>
 
-        <select id="voice-select">
-            <option value="">Selecionar Voz...</option>
-        </select>
-
         <div class="controls">
+            <select id="voice-select">
+                <option value="">Selecionar Voz...</option>
+            </select>
             <button id="play-btn">Ouvir</button>
+            <button id="stop-btn">Parar</button>
             <button id="download-btn">Baixar MP3</button>
+        </div>
+
+        <div id="legenda-container" class="legenda-container">
+            <span class="legenda-titulo">Legenda:</span>
+            <p id="legenda-texto">O texto narrado aparecerá aqui em tempo real.</p>
         </div>
     </div>
 
