@@ -20,7 +20,6 @@
     const voiceSelect = document.getElementById('voice-select');
     const playBtn = document.getElementById('play-btn');
     const stopBtn = document.getElementById('stop-btn');
-    const downloadBtn = document.getElementById('download-btn');
     const legendaTexto = document.getElementById('legenda-texto');
 
     // Programação defensiva: validamos a existência dos elementos essenciais antes de continuar
@@ -198,12 +197,5 @@
 
     if (stopBtn) {
         stopBtn.addEventListener('click', handleStop);
-    }
-
-    // Aviso informativo sobre o botão de download
-    if (downloadBtn) {
-        downloadBtn.addEventListener('click', () => {
-            alert('O download de MP3 nativo requer integração com uma API de Text-to-Speech no servidor.');
-        });
     }
 })();

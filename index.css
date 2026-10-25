@@ -139,14 +139,19 @@ textarea#text-input:focus {
 
 #voice-select {
     height: 42px;
-    padding: 0 14px;
+    width: 175px;
+    max-width: 180px;
+    padding: 0 10px;
     border-radius: 12px;
     background-color: var(--surface);
     border: 1px solid var(--purple);
     color: var(--text);
-    font-size: 14px;
+    font-size: 13.5px;
     cursor: pointer;
     outline: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
     transition: all 0.2s ease;
 }
 
